@@ -1,0 +1,98 @@
+﻿@model DirectoryViewModel
+
+@{
+    ViewData["Title"] = "";
+}
+
+<div class="text-center">
+    <form method="get" action="">
+        <div class="input-group md-form form-sm form-1 pl-0">
+            <div class="input-group-prepend">
+                <span class="input-group-text purple lighten-3" id="basic-text1">
+                    <i class="fas fa-filter text-white" aria-hidden="true"></i>
+                </span>
+            </div>
+            <input name="query"
+                   class="form-control"
+                   type="text"
+                   placeholder="Filter files"
+                   aria-label="Filter"
+                   value="@Model.Query">
+
+        </div>
+        @if (Model.InvalidQuery)
+        {
+            <div style="text-align: left; margin-left: 30px">
+                <p class="text-danger text-left">
+                    Invalid query
+                </p>
+            </div>
+        }
+        <div class="custom-control custom-checkbox my-1 mr-sm-2" style="text-align: left; margin-left: 30px">
+            <input name="includeSubdirectories"
+                   type="checkbox"
+                   class="custom-control-input"
+                   id="customControlInline"
+                   checked="@Model.IncludeSubdirectories">
+            <label class="custom-control-label" for="customControlInline">Include subdirectories</label>
+        </div>
+    </form>
+
+    <h6>
+        <hr />
+
+        @foreach (var directory in Model.Directories)
+        {
+            <div style="width: 85%; text-align: left; margin-left: 2em; padding-top: 0.5em">
+                <span class="fas fa-folder"></span>
+                <a href="/@directory.Id">@directory.Name</a>
+            </div>
+        }
+
+        @foreach (var file in Model.Files)
+        {
+            <div style="width: 85%; text-align: left; margin-left: 2em; margin-top: 0.5em">
+                <div style="clear: both">
+                    <p style="float: left">
+                        <span class="fas fa-file"></span>
+                        <a href="/file/@file.Id">@file.Name</a>
+                    </p>
+                    <p style="float: right">
+                        @BytesToString(file.Size)
+                    </p>
+                </div>
+            </div>
+            <br />
+        }
+
+        @if (Model.Files.Count == 0 && Model.Directories.Count == 0)
+        {
+            <p>This directory has no content</p>
+        }
+
+    <div style="width: 85%; text-align: left; margin-left: 2em; margin-top: 1em">
+        <button class="btn btn-secondary" onclick=@($"window.location.href='/{Model.DirectoryId}/create-directory'")>
+            Create new directory
+        </button>
+        <button class="btn btn-secondary" onclick=@($"window.location.href='/{Model.DirectoryId}/upload-file'")>
+            Upload file
+        </button>
+    </div>
+    </h6>
+</div>
+
+@{
+    static String BytesToString(long count)
+    {
+        string[] suf = { "B", "KB", "MB", "GB", "TB" };
+
+        if (count == 0)
+        {
+            return "0" + suf[0];
+        }
+        long bytes = Math.Abs(count);
+        int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
+        double num = Math.Round(bytes / Math.Pow(1024, place), 1);
+        return (Math.Sign(count) * num) + suf[place];
+    }
+}

@@ -1,0 +1,34 @@
+﻿@model Disk.Ui.Models.FileViewModel
+
+@{
+    ViewData["Title"] = " - " + Model.File.Name;
+    string fileUrl = $"/v1/api/rest/file/{Model.File.Id}";
+}
+
+<h3>@Model.File.Name</h3>
+
+
+@switch (Model.FileType)
+{
+    case Disk.Ui.Models.FileType.Image:
+        <img src=@fileUrl alt=@Model.File.Name style="max-height: 70vh" />
+        break;
+
+    case Disk.Ui.Models.FileType.Text:
+        <iframe src=@fileUrl scrolling='no' frameborder='0' />
+        break;
+
+    case Disk.Ui.Models.FileType.Video:
+        <video controls style="max-height: 70vh">
+            <source src=@fileUrl type="video/mp4">
+            Your browser does not support the video playback.
+            <a href="@fileUrl">Download file</a>
+        </video>
+        break;
+
+    default:
+        <div>
+            No preview available.  <a href="@fileUrl" download="@Model.File.Name.">Download file</a>
+        </div>
+        break;
+}

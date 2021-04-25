@@ -1,0 +1,14 @@
+﻿@model DirectoryCreateViewModel 
+
+@{
+    ViewData["Title"] = "";
+}
+
+    <form method="post" action="">
+        <div class="form-group mx-sm-3 mb-2">
+            <label asp-for="Name"  class="sr-only">New directory name</label>
+            <input asp-for="Name" class="form-control" placeholder="Directory name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Create directory</button>
+    </form>

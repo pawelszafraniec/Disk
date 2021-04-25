@@ -1,0 +1,57 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Sign in";
+    ViewData["HeaderDisabled"] = true;
+}
+<div>
+    <div class="card login-card shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title text-left mb-4 mt-1">Sign in</h3>
+            <hr>
+            @if (Model.Message != null)
+            {
+                <p class="text-danger text-center">@Model.Message</p>
+            }
+            <form method="post" action="">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input name="login" class="form-control" placeholder="login" type="text" value=@Model.Login>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input name="password" class="form-control" placeholder="password" type="password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    .login-card
+    {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    @@media screen and ( min-height: 400px )
+    {
+        .login-card
+        {
+            margin-top: calc(50vh - 200px);
+        }
+    }
+</style>
+
+<script>
+
+</script>

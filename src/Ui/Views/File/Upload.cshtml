@@ -1,0 +1,17 @@
+﻿@model Disk.Ui.Models.FileUploadViewModel
+
+@{
+    ViewData["Title"] = "Upload";
+}
+
+<h3>File upload</h3>
+
+<form enctype="multipart/form-data" method="post" action=@($"/file/{Model.DirectoryId}")>
+    <dl>
+        <dd>
+            <input type="file" name="file" id="file"/>
+        </dd>
+    </dl>
+    <button class="btn btn-primary" type="submit">Upload</button>
+    <label>Maximum file size is 30MB</label>
+</form>
