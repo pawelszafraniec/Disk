@@ -1,0 +1,4 @@
+Project created in association with Bartek (https://github.com/Somft/).
+
+Disk was created as a online storage room for files. 
+Files can have different extensions, size, can be placed in folders according to their hierarchy and be searched with easy queries.
